@@ -5,7 +5,7 @@ project/target/
 .project
 .cache*
 .classpath
-.pdf
+*.pdf
 bin/
 lib/
 .settings/
