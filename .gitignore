@@ -9,3 +9,4 @@ project/target/
 bin/
 lib/
 .settings/
+output_exercise*
