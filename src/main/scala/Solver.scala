@@ -9,5 +9,5 @@ object Solver extends App {
 	val transactionslines = Source.fromFile("transactions.txt").getLines().drop(1)
 	val transactions = transactionslines.map(line => line: Transaction).toList
 
-	Exercise1.solve(transactions)
+	Exercise2.solve(transactions)
 }
