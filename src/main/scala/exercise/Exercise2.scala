@@ -10,15 +10,15 @@ object Exercise2 extends Exercise {
 					.mapValues( listTransaction  => listTransaction.map(_.transactionAmount).sum / listTransaction.length) // compute average
 
 		//Sort the completed Map by accountId and category
-		val seqOrdered = completeResult(res).toSeq.sortBy(x => (x._1._1, x._1._2))(Ordering[(String, String)])
-		val resOrdered = ListMap(seqOrdered:_*)
-		resOrdered.foreach(println)
+		val orderedSeq = completeResult(res).toSeq.sortBy(x => (x._1._1, x._1._2))(Ordering[(String, String)])
+		val orderedRes = ListMap(orderedSeq:_*)
+		orderedRes.foreach(println)
 
 		/*
 		Restructure data for file processing.
 		The groupBy doesn't alter the order of the ListMap
 		*/
-		val structuredRes = resOrdered.groupBy(_._1._1).mapValues(_.map(_._2))
+		val structuredRes = orderedRes.groupBy(_._1._1).mapValues(_.map(_._2))
 		val finalRes = ListMap(structuredRes.toSeq.sortBy(_._1):_*)
 
 		val file = new File(output_prefix+"2")
