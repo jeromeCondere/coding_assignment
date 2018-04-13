@@ -1,7 +1,7 @@
 # Coding assignment
 
 For Eclipse use "sbt eclipse" command in order to generate configuration files.  
-With sbt do as usual: sbt run or sbt package then *scala* of the jar in the target folder  
+With sbt do as usual: sbt run or sbt package then go to the target folder  
 
 ## Exercise trait
 Each class that extends this trait must implement three methods:  
