@@ -4,7 +4,7 @@ import scala.collection.immutable.{ListMap, Iterable}
 import java.io._
 import scala.math.Ordering
 
-object Exercise2 extends Exercise[String,Iterable[Double]] {
+object Exercise2 extends Exercise[String,List[Double]] {
 	def solve(transactions: List[Transaction]) = {	
 		val res = transactions.groupBy(transaction => (transaction.accountId, transaction.category)) //groupBy accountId and category
 					.mapValues( listTransaction  => listTransaction.map(_.transactionAmount).sum / listTransaction.length) // compute average
@@ -18,7 +18,7 @@ object Exercise2 extends Exercise[String,Iterable[Double]] {
 		Restructure data for file processing.
 		The groupBy doesn't alter the order of the ListMap
 		*/
-		val structuredRes = orderedRes.groupBy(_._1._1).mapValues(_.map(_._2))
+		val structuredRes = orderedRes.groupBy(_._1._1).mapValues(_.map(_._2).toList)
 	    ListMap(structuredRes.toSeq.sortBy(_._1):_*)
 	 }
  
@@ -42,7 +42,7 @@ object Exercise2 extends Exercise[String,Iterable[Double]] {
 	 	}
 	 }
 
-	def write(res: ListMap[String,Iterable[Double]]) = {
+	def write(res: ListMap[String,List[Double]]) = {
 		val file = new File(output_prefix+"2")
 		val bw = new BufferedWriter(new FileWriter(file))
 		bw.write("accountId,"+ categories.mkString(",")+"\n")
