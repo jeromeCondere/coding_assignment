@@ -27,7 +27,7 @@ object Exercise2 extends Exercise[String,List[Double]] {
 	def write(res: ListMap[String,List[Double]]) = {
 		val file = new File(output_prefix+"2.csv")
 		val bw = new BufferedWriter(new FileWriter(file))
-		
+
 		bw.write("accountId,"+ categories.mkString(",")+"\n")
 		res.foreach{
 			case(accountId, averageValues) =>  bw.write(accountId+","+averageValues.mkString(",")+"\n")
@@ -35,4 +35,6 @@ object Exercise2 extends Exercise[String,List[Double]] {
 
 		bw.close()
 	}
+
+	def statement = "Calculate the average value of transactions per account for each type of transaction (there are seven in total)."
 }

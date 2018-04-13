@@ -41,4 +41,6 @@ object Exercise3 extends Exercise[(Int,String),List[Double]] {
 		}
 		bw.close()
 	}
+
+	def statement = "For each day, calculate statistics for each account number for the previous five days of transactions, not including transactions from the day statistics are being calculated for"
 }
