@@ -8,7 +8,7 @@ object Exercise2 extends Exercise[String,List[Double]] {
 	val categories = ('A' to 'G').map(c => c+""+c)
 
 	def solve(transactions: List[Transaction]) = {	
-		val res: Map[(String,String),Double] = transactions.groupBy(transaction => (transaction.accountId, transaction.category)) //groupBy accountId and category
+		val res = transactions.groupBy(transaction => (transaction.accountId, transaction.category)) //groupBy accountId and category
 					.mapValues( listTransaction  => listTransaction.map(_.transactionAmount).sum / listTransaction.length) // compute average
 
 		//groupBy accountId
