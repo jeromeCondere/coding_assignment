@@ -103,13 +103,14 @@ class ExerciseSpec extends FlatSpec {
 
 		val otherTransactions = List(
 			Transaction("T1","A1",2,"AA",5),
-			Transaction("T2","A1",3,"AA",15),//max for A1
+			Transaction("T1","A1",3,"AA",15),
+			Transaction("T2","A1",3,"BB",160),//max for A1
 
 			Transaction("T1","A2",5,"CC",4),
 			Transaction("T2","A2",5,"CC",9),//max for A2
 		)
 		val otherResultsForDay6 = Exercise3.rollingWindowStats(otherTransactions,day6)
-		assert(otherResultsForDay6((day6,"A1")) == List(15,10,20,0,0))
+		assert(otherResultsForDay6((day6,"A1")) == List(160,60,20,0,0))
 		assert(otherResultsForDay6((day6,"A2")) == List(9,6.5,0,13,0))
 	}
 
