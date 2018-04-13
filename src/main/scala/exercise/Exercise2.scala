@@ -12,16 +12,16 @@ object Exercise2 extends Exercise[String,List[Double]] {
 					.mapValues( listTransaction  => listTransaction.map(_.transactionAmount).sum / listTransaction.length) // compute average
 
 		//groupBy accountId
-		val deRes = res.toSeq.groupBy(_._1._1).mapValues{
+		val finalRes = res.toSeq.groupBy(_._1._1).mapValues{
 			listOfGroups => categories.map{
 				category => listOfGroups.find(_._1._2 == category) match {
-					case None => 0.0 //the category is missing for this account
-					case Some(group) => group._2 //the category is available so we return the average value of transactions
+					case None => 0 //the category is missing for this account
+					case Some(((_,_),transactionAverage)) => transactionAverage //the category is available so we return the average value of transactions
 				}
 			}.toList
 		}
 
-	    ListMap(deRes.toSeq.sortBy(_._1):_*)
+	    ListMap(finalRes.toSeq.sortBy(_._1):_*)
 	 }
 
 	def write(res: ListMap[String,List[Double]]) = {
