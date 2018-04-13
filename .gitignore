@@ -6,6 +6,7 @@ project/target/
 .cache*
 .classpath
 *.pdf
+*.csv
 bin/
 lib/
 .settings/

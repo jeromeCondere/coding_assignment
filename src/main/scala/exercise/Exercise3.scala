@@ -32,7 +32,7 @@ object Exercise3 extends Exercise[(Int,String),List[Double]] {
 	}
 
 	def write(res: ListMap[(Int,String),List[Double]]) = {
-		val file = new File(output_prefix+"3")
+		val file = new File(output_prefix+"3.csv")
 		val bw = new BufferedWriter(new FileWriter(file))
 		bw.write("day,accountId,maximum,average,AA_Total_Value,CC_Total_Value,FF_Total_Value\n")
 		res.foreach{case (a,b) => bw.write(a._1+","+a._2+","+b.mkString(",")+"\n")}
