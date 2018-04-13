@@ -6,7 +6,8 @@ import scala.math.Ordering
 
 object Exercise3 extends Exercise[(Int,String),List[Double]] {
 	def solve(transactions: List[Transaction]) = {
-		val resultMapStats = (6 to 10).map(day => rollingWindowStats(transactions,day)).flatten.toMap
+		val maxDay = transactions.map(_.transactionDay).max
+		val resultMapStats = (6 to maxDay).map(day => rollingWindowStats(transactions,day)).flatten.toMap
 
 		val orderedSeq = resultMapStats.toSeq.sortBy{case((day,accountId),_) => (day, accountId)}(Ordering[(Int, String)])
 		ListMap(orderedSeq:_*)
