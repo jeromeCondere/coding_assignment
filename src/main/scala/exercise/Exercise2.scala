@@ -8,11 +8,11 @@ object Exercise2 extends Exercise[String,List[Double]] {
 	val categories = ('A' to 'G').map(c => c+""+c)
 
 	def solve(transactions: List[Transaction]) = {	
-		val res = transactions.groupBy(transaction => (transaction.accountId, transaction.category)) //groupBy accountId and category
+		val meanByAccountCategory = transactions.groupBy(transaction => (transaction.accountId, transaction.category)) //groupBy accountId and category
 					.mapValues( listTransaction  => listTransaction.map(_.transactionAmount).sum / listTransaction.length) // compute average
 
 		//groupBy accountId
-		val finalRes = res.toSeq.groupBy(_._1._1).mapValues{
+		val finalRes = meanByAccountCategory.toSeq.groupBy(_._1._1).mapValues{
 			listOfGroups => categories.map{
 				category => listOfGroups.find(_._1._2 == category) match {
 					case None => 0 //the category is missing for this account
@@ -27,10 +27,12 @@ object Exercise2 extends Exercise[String,List[Double]] {
 	def write(res: ListMap[String,List[Double]]) = {
 		val file = new File(output_prefix+"2.csv")
 		val bw = new BufferedWriter(new FileWriter(file))
+		
 		bw.write("accountId,"+ categories.mkString(",")+"\n")
 		res.foreach{
 			case(accountId, averageValues) =>  bw.write(accountId+","+averageValues.mkString(",")+"\n")
 		}
+
 		bw.close()
 	}
 }

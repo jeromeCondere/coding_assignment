@@ -11,6 +11,7 @@ trait Exercise[A,B] {
 	/**Save output*/
 	def write(result: ListMap[A,B])
 
+	/**solve and write the solution of the exercise*/
 	final def execute(transactions: List[Transaction]) = {
 		val res = solve(transactions)
 		res.foreach(println)

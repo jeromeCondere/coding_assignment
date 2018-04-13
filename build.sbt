@@ -8,6 +8,5 @@ lazy val root = (project in file(".")).
       version      := "0.0.1"
     )),
     name := "coding_assignment",
-    libraryDependencies += scalaTest % Test,
-    libraryDependencies += specs2
+    libraryDependencies += scalaTest % Test
   )
