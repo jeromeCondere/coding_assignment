@@ -14,9 +14,11 @@ object Exercise2 extends Exercise[String,List[Double]] {
 		//groupBy accountId
 		val finalRes = meanByAccountCategory.toSeq.groupBy(_._1._1).mapValues{
 			listOfGroups => categories.map{
-				category => listOfGroups.find(_._1._2 == category) match {
-					case None => 0 //the category is missing for this account
+				category => listOfGroups.find{
+						case(((_,groupCategory),_)) => groupCategory == category
+					} match {
 					case Some(((_,_),transactionAverage)) => transactionAverage //the category is available so we return the average value of transactions
+					case None => 0 //the category is missing for this account
 				}
 			}.toList
 		}
