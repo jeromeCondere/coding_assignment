@@ -5,10 +5,11 @@ import java.io._
 import scala.math.Ordering
 
 object Exercise2 extends Exercise[String,List[Double]] {
+	val categories = ('A' to 'G').map(c => c+""+c)
+
 	def solve(transactions: List[Transaction]) = {	
 		val res = transactions.groupBy(transaction => (transaction.accountId, transaction.category)) //groupBy accountId and category
 					.mapValues( listTransaction  => listTransaction.map(_.transactionAmount).sum / listTransaction.length) // compute average
-
 
 		//Sort the completed Map by accountId and category
 		val orderedSeq = completeResult(res).toSeq.sortBy(x => (x._1._1, x._1._2))(Ordering[(String, String)])
@@ -24,13 +25,12 @@ object Exercise2 extends Exercise[String,List[Double]] {
  
 	 //Fills the resulted average map with the missing values
 	 def completeResult(res: Map[(String, String), Double]) = {
-	 	val accountSet = res.keySet.map(_._1)
-	 	val categorySet = res.keySet.map(_._2)
+	 	val accounts = res.keySet.map(_._1)
 
 	 	//create all tuples of type (accountId, category)
 	 	val tuples = for {
-	 		client <- accountSet
-	 		category <- categorySet
+	 		client <- accounts
+	 		category <- categories
 	 	} yield (client, category)
 
 	 	// if the combinaison is not found in res we create a key associate with a zero value

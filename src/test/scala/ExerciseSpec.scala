@@ -23,30 +23,52 @@ class ExerciseSpec extends FlatSpec {
 
 		val transactions = List(
 			Transaction("T1","A1",1,"AA",5),
-			Transaction("T2","A1",1,"AA",15),
+			Transaction("T2","A1",1,"AA",15),// mean = 10
 			Transaction("T3","A1",1,"BB",4),
 			Transaction("T4","A1",1,"BB",2),
-			Transaction("T5","A1",1,"BB",3),
-			Transaction("T6","A1",2,"CC",20),
-			Transaction("T7","A1",2,"DD",9),
-			Transaction("T8","A1",3,"EE",1),
-			Transaction("T9","A1",3,"FF",17),
+			Transaction("T5","A1",1,"BB",3),// mean = 3
+			Transaction("T6","A1",2,"CC",20),// mean = 20
+			Transaction("T7","A1",2,"DD",9),// mean = 9
+			Transaction("T8","A1",3,"EE",1),// mean = 1
+			Transaction("T9","A1",3,"FF",17),// mean = 17
+			Transaction("T91","A1",3,"GG",5),
+			Transaction("T92","A1",3,"GG",2),// mean = 3.5
 
-			Transaction("T11","A2",1,"AA",5),
-			Transaction("T12","A2",1,"AA",15),
+			Transaction("T11","A2",1,"AA",6),
+			Transaction("T12","A2",1,"AA",8),// mean = 7
 			Transaction("T13","A2",1,"BB",4),
-			Transaction("T14","A2",1,"BB",2),
-			Transaction("T15","A2",1,"BB",3),
-			Transaction("T16","A2",2,"CC",20),
-			Transaction("T17","A2",2,"DD",9),
-			Transaction("T18","A2",3,"EE",1),
+			Transaction("T14","A2",1,"BB",11),// mean = 7.5
+			Transaction("T16","A2",2,"CC",140),// mean = 140
 			Transaction("T19","A2",3,"FF",17),
+			Transaction("T19","A2",3,"FF",1),// mean = 9
+			Transaction("T191","A2",3,"GG",1),// mean = 1
 		)
+
 		val results = Exercise2.solve(transactions)
 		assert(results.size == 2) //one result by day
-		assert(results("A1") == 9)
-		assert(results(2) == 29)
-		assert(results(3) == 1)
+		results.foreach{
+			case (_,list) => assert(list.length == 7)
+		}
+		assert(results("A1") == List(10,3,20,9,1,17,3.5))
+		assert(results("A2") == List(7,7.5,140,0,0,9,1))
+
+
+		val otherTransactions = List(
+			Transaction("T1","A1",1,"AA",5),
+			Transaction("T2","A1",1,"AA",15),
+			Transaction("T2","A1",1,"AA",13),// mean = 10
+			Transaction("T6","A1",2,"CC",20),// mean = 20
+
+			Transaction("T11","A2",1,"AA",6),
+			Transaction("T12","A2",1,"AA",8),// mean = 7
+			Transaction("T191","A2",3,"GG",1),// mean = 1
+		)
+
+		val otherResults = Exercise2.solve(otherTransactions)
+		assert(otherResults.size == 2) //one result by day
+		assert(otherResults("A1") == List(11,0,20,0,0,0,0))
+		assert(otherResults("A2") == List(7,0,0,0,0,0,1))
+
 	}
 
 	"Exercise3" should "Compute statistics based on a five days rolling window per account" in {
