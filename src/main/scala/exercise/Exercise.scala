@@ -11,6 +11,7 @@ trait Exercise[A,B] {
 	/**Save output*/
 	def write(result: ListMap[A,B])
 
+	/**statement of the exercise*/
 	def statement: String
 
 	/**solve and write the solution of the exercise*/
