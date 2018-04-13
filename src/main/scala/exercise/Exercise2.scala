@@ -24,12 +24,12 @@ object Exercise2 extends Exercise[String,List[Double]] {
 	    ListMap(finalRes.toSeq.sortBy(_._1):_*)
 	 }
 
-	def write(res: ListMap[String,List[Double]]) = {
+	def write(result: ListMap[String,List[Double]]) = {
 		val file = new File(output_prefix+"2.csv")
 		val bw = new BufferedWriter(new FileWriter(file))
 
 		bw.write("accountId,"+ categories.mkString(",")+"\n")
-		res.foreach{
+		result.foreach{
 			case(accountId, averageValues) =>  bw.write(accountId+","+averageValues.mkString(",")+"\n")
 		}
 

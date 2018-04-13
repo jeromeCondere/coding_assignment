@@ -6,9 +6,9 @@ import scala.math.Ordering
 
 object Exercise3 extends Exercise[(Int,String),List[Double]] {
 	def solve(transactions: List[Transaction]) = {
-		val res = (6 to 10).map(day => rollingWindowStats(transactions,day)).flatten.toMap
+		val resultMapStats = (6 to 10).map(day => rollingWindowStats(transactions,day)).flatten.toMap
 
-		val orderedSeq = res.toSeq.sortBy{case((day,accountId),_) => (day, accountId)}(Ordering[(Int, String)])
+		val orderedSeq = resultMapStats.toSeq.sortBy{case((day,accountId),_) => (day, accountId)}(Ordering[(Int, String)])
 		ListMap(orderedSeq:_*)
 	}
 
@@ -31,12 +31,12 @@ object Exercise3 extends Exercise[(Int,String),List[Double]] {
 		}
 	}
 
-	def write(res: ListMap[(Int,String),List[Double]]) = {
+	def write(result: ListMap[(Int,String),List[Double]]) = {
 		val file = new File(output_prefix+"3.csv")
 		val bw = new BufferedWriter(new FileWriter(file))
 
 		bw.write("day,accountId,maximum,average,AA_Total_Value,CC_Total_Value,FF_Total_Value\n")
-		res.foreach{
+		result.foreach{
 			case (a,b) => bw.write(a._1+","+a._2+","+b.mkString(",")+"\n")
 		}
 		bw.close()
